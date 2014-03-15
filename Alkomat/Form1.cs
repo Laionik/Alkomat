@@ -43,33 +43,46 @@ namespace Alkomat
 
         private void button_usb_connect_Click(object sender, EventArgs e)
         {
-            button_usb_connect.Enabled = false;
-            button_usb_disconnect.Enabled = true;
-            port = port_number_box.Text;
-            baudrate = baudrate_box.Text;
-            logger.AppendText("Wczytano port " + port + " oraz baudrate " + baudrate + "\n");
-            Arduino = new SerialPort();
-            Arduino.PortName = port;
-            Arduino.BaudRate = int.Parse(baudrate);
-            Arduino.Open();
-            logger.AppendText("\nOtwarto port " + port + "\n");
-            value = Arduino.ReadLine();
-            arduino_value.Text = value + " ‰";
-            date = DateTime.Now.ToString("dd/MM/yyyy");
-            time = DateTime.Now.ToString("HH:mm:ss");
-            File.AppendAllText(path, date + " " + time + " " + value + "\n");
-
+            try
+            {
+                button_usb_connect.Enabled = false;
+                button_usb_disconnect.Enabled = true;
+                port = port_number_box.Text;
+                baudrate = baudrate_box.Text;
+                logger.AppendText("Wczytano port " + port + " oraz baudrate " + baudrate + "\n");
+                Arduino = new SerialPort();
+                Arduino.PortName = port;
+                Arduino.BaudRate = int.Parse(baudrate);
+                Arduino.Open();
+                logger.AppendText("\nOtwarto port " + port + "\n");
+                value = Arduino.ReadLine();
+                arduino_value.Text = value + " ‰";
+                date = DateTime.Now.ToString("dd/MM/yyyy");
+                time = DateTime.Now.ToString("HH:mm:ss");
+                File.AppendAllText(path, date + " " + time + " " + value + "\n");
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show(x.Message);
+            }
         }
 
         private void read_ports_Click(object sender, EventArgs e)
         {
-            portsName = SerialPort.GetPortNames();
-            logger.AppendText("Dostepne porty:\n");
-            port_number_box.Text = portsName[0];
-            foreach (string x in portsName)
+            try
             {
-                port_number_box.Items.Add(x.ToString());
-                logger.AppendText(x + "\n");
+                portsName = SerialPort.GetPortNames();
+                logger.AppendText("Dostepne porty:\n");
+                port_number_box.Text = portsName[0];
+                foreach (string x in portsName)
+                {
+                    port_number_box.Items.Add(x.ToString());
+                    logger.AppendText(x + "\n");
+                }
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show("Nic nie podlaczone");
             }
         }
 
@@ -89,19 +102,26 @@ namespace Alkomat
 
         private void button_get_data_from_file_Click(object sender, EventArgs e)
         {
-            StreamReader dataReader = new StreamReader(path);
-            string file_data = "";
-            while (file_data != null)
+            try
             {
-                file_data = dataReader.ReadLine();
-                if (file_data != null)
-                    list_value.Add(file_data);
+                StreamReader dataReader = new StreamReader(path);
+                string file_data = "";
+                while (file_data != null)
+                {
+                    file_data = dataReader.ReadLine();
+                    if (file_data != null)
+                        list_value.Add(file_data);
+                }
+                dataReader.Close();
+                logger.AppendText("Wczytano dane:\n");
+                foreach (string sOutput in list_value)
+                {
+                    logger.AppendText(sOutput + "\n");
+                }
             }
-            dataReader.Close();
-            logger.AppendText("Wczytano dane:\n");
-            foreach (string sOutput in list_value)
+            catch(Exception x)
             {
-                logger.AppendText(sOutput + "\n");
+                MessageBox.Show(x.Message);
             }
         }
 
@@ -127,6 +147,22 @@ namespace Alkomat
                 chart.Series[0].Points.AddXY(i, value);
                 chart.Series[0].Points[i - 1].AxisLabel = date;
                 i++;
+            }
+        }
+
+        private void button_erase_graph_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                foreach (var series in chart.Series)
+                {
+                    series.Points.Clear();
+                }
+                chart.ChartAreas.Remove(chart.ChartAreas.FindByName("draw"));
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show(x.Message);
             }
         }
     }

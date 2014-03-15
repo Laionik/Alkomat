@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.button_usb_connect = new System.Windows.Forms.Button();
             this.button_draw_graph = new System.Windows.Forms.Button();
             this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -45,6 +45,7 @@
             this.baudrate_box = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.arduino_value = new System.Windows.Forms.TextBox();
+            this.button_erase_graph = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
             this.SuspendLayout();
             // 
@@ -70,18 +71,18 @@
             // 
             // chart
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart.Legends.Add(legend1);
+            chartArea2.Name = "ChartArea1";
+            this.chart.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart.Legends.Add(legend2);
             this.chart.Location = new System.Drawing.Point(118, 38);
             this.chart.Name = "chart";
-            series1.ChartArea = "ChartArea1";
-            series1.IsValueShownAsLabel = true;
-            series1.IsVisibleInLegend = false;
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart.Series.Add(series1);
+            series2.ChartArea = "ChartArea1";
+            series2.IsValueShownAsLabel = true;
+            series2.IsVisibleInLegend = false;
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chart.Series.Add(series2);
             this.chart.Size = new System.Drawing.Size(458, 439);
             this.chart.TabIndex = 2;
             this.chart.Text = "Wykres";
@@ -185,11 +186,22 @@
             this.arduino_value.Size = new System.Drawing.Size(100, 20);
             this.arduino_value.TabIndex = 16;
             // 
+            // button_erase_graph
+            // 
+            this.button_erase_graph.Location = new System.Drawing.Point(12, 305);
+            this.button_erase_graph.Name = "button_erase_graph";
+            this.button_erase_graph.Size = new System.Drawing.Size(91, 23);
+            this.button_erase_graph.TabIndex = 17;
+            this.button_erase_graph.Text = "Czysc wykres";
+            this.button_erase_graph.UseVisualStyleBackColor = true;
+            this.button_erase_graph.Click += new System.EventHandler(this.button_erase_graph_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(757, 489);
+            this.Controls.Add(this.button_erase_graph);
             this.Controls.Add(this.arduino_value);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.baudrate_box);
@@ -228,6 +240,7 @@
         private System.Windows.Forms.TextBox baudrate_box;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox arduino_value;
+        private System.Windows.Forms.Button button_erase_graph;
     }
 }
 
