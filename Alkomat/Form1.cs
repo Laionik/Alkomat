@@ -119,7 +119,7 @@ namespace Alkomat
                     logger.AppendText(sOutput + "\n");
                 }
             }
-            catch(Exception x)
+            catch (Exception x)
             {
                 MessageBox.Show(x.Message);
             }
@@ -138,7 +138,7 @@ namespace Alkomat
             chart.Series[0].Name = "Stezenie alkoholu";
             chart.Series[0].Color = Color.Blue;
             chart.Series[0].BorderWidth = 2;
-         
+
             foreach (string x in list_value)
             {
                 help = x.Split(' ');
