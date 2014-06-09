@@ -39,6 +39,22 @@ namespace Alkomat
                 dInfo.Create();
             }
             list_value = new ArrayList();
+
+            try
+            {
+                portsName = SerialPort.GetPortNames();
+                logger.AppendText("Dostepne porty:\n");
+                port_number_box.Text = portsName[0];
+                foreach (string x in portsName)
+                {
+                    port_number_box.Items.Add(x.ToString());
+                    logger.AppendText(x + "\n");
+                }
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show("Nic nie podlaczone");
+            }
         }
 
         private void button_usb_connect_Click(object sender, EventArgs e)
